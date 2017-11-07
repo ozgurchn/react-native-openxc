@@ -23,6 +23,8 @@ import java.util.TimerTask;
 import com.openxc.VehicleManager;
 import com.openxc.measurements.Measurement;
 import com.openxc.measurements.EngineSpeed;
+import com.openxc.measurements.IgnitionStatus;
+import com.openxc.measurements.BrakePedalStatus;
 
 import com.facebook.react.bridge.NativeModule;
 import com.facebook.react.bridge.ReactApplicationContext;
@@ -40,18 +42,15 @@ public class RNOpenXcModule extends ReactContextBaseJavaModule {
     private TextView mEngineSpeedView;
     private Activity activity;
     Double mEngineStatus = 0.0;
-    Timer timer = new Timer();
-
+    String mIgnitionStatus = "";
+    Boolean mBrakePedalStatus;
 
     public RNOpenXcModule(ReactApplicationContext reactContext, Activity activity) {
         super(reactContext);
         this.activity = activity;
-        System.out.println("created");
         if(mVehicleManager == null) {
-            System.out.println("created2");
-            Intent intent = new Intent(activity, VehicleManager.class);
-
-            activity.bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
+          Intent intent = new Intent(activity, VehicleManager.class);
+          activity.bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
         }
     }
 
@@ -60,26 +59,27 @@ public class RNOpenXcModule extends ReactContextBaseJavaModule {
         return "openXC";
     }
 
-    /*@ReactMethod
-    public void checkEngineStatus() {
-        final Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            public void run() {
-                getEngineStatus();
-            }
-        }, 500);
-    } */
-
-   /* @ReactMethod
-    public void alert() {
-        setTimerExample();
-    } */
-
     @ReactMethod
-    void getActivityName(@Nonnull Callback callback) {
+    void getEngineSpeed(@Nonnull Callback callback) {
         Activity activity = getCurrentActivity();
         if (activity != null) {
-            callback.invoke(getEngineStatus());
+            callback.invoke(EngineStatus());
+        }
+    }
+
+    @ReactMethod
+    void getIgnitionStatus(@Nonnull Callback callback) {
+        Activity activity = getCurrentActivity();
+        if (activity != null) {
+            callback.invoke(IgnitionValue());
+        }
+    }
+
+    @ReactMethod
+    void getBrakePedalStatus(@Nonnull Callback callback) {
+        Activity activity = getCurrentActivity();
+        if (activity != null) {
+            callback.invoke(BrakePedalValue());
         }
     }
 
@@ -90,49 +90,27 @@ public class RNOpenXcModule extends ReactContextBaseJavaModule {
     EngineSpeed.Listener mSpeedListener = new EngineSpeed.Listener() {
         @Override
         public void receive(Measurement measurement) {
-            System.out.println("created5");
-            // When we receive a new EngineSpeed value from the car, we want to
-            // update the UI to display the new value. First we cast the generic
-            // Measurement back to the type we know it to be, an EngineSpeed.
             final EngineSpeed speed = (EngineSpeed) measurement;
-            System.out.println("created6");
-            System.out.println(speed.getValue().doubleValue());
-            // In order to modify the UI, we have to make sure the code is
-            // running on the "UI thread" - Google around for this, it's an
-            // important concept in Android.
             setEngineStatus(speed.getValue().doubleValue());
-           /* getActivity().runOnUiThread(new Runnable() {
-                public void run() {
-                    // Finally, we've got a new value and we're running on the
-                    // UI thread - we set the text of the EngineSpeed view to
-                    // the latest value
-                    mEngineSpeedView.setText("Engine speed (RPM): "
-                            + speed.getValue().doubleValue());
-                }
-            }); */
+        }
+    };
+    IgnitionStatus.Listener mIgnitionListener = new IgnitionStatus.Listener() {
+        @Override
+        public void receive(Measurement measurement) {
+            final IgnitionStatus ignition = (IgnitionStatus) measurement;
+            setIgnitionStatus(ignition.getValue().getSerializedValue());
         }
     };
 
-    /*private void setTimerExample() {
-        timer.schedule(doTimerBro, 0, 5000);
-    }
-    TimerTask doTimerBro = new TimerTask() {
-        int i = 0;
+    BrakePedalStatus.Listener mBrakePedalListener = new BrakePedalStatus.Listener() {
         @Override
-        public void run() {
-            if(i==0) {
-                setEngineStatus(true);
-            } else if(i==2) {
-                setEngineStatus(false);
-            } else if(i==5) {
-                setEngineStatus(true);
-                timer.cancel();
-            }
-            i++;
+        public void receive(Measurement measurement) {
+            final BrakePedalStatus brake = (BrakePedalStatus) measurement;
+            setBrakePedalStatus(brake.getValue());
         }
-    }; */
+    };
 
-    private Double getEngineStatus() {
+    private Double EngineStatus() {
         return this.mEngineStatus;
     }
 
@@ -140,34 +118,40 @@ public class RNOpenXcModule extends ReactContextBaseJavaModule {
         this.mEngineStatus = value;
     }
 
-    private ServiceConnection mConnection = new ServiceConnection() {
+    private String IgnitionValue() {
+        return this.mIgnitionStatus;
+    }
 
-        // Called when the connection with the VehicleManager service is
-        // established, i.e. bound.
+    private void setIgnitionStatus(String value) {
+        this.mIgnitionStatus = value;
+    }
+
+    private Boolean BrakePedalValue() {
+        return this.mBrakePedalStatus;
+    }
+
+    private void setBrakePedalStatus(Boolean value) {
+        this.mBrakePedalStatus = value;
+    }
+
+    private ServiceConnection mConnection = new ServiceConnection() {
         public void onServiceConnected(ComponentName className,
                                        IBinder service) {
-            System.out.println("created3");
             Log.i(TAG, "Bound to VehicleManager");
-            // When the VehicleManager starts up, we store a reference to it
-            // here in "mVehicleManager" so we can call functions on it
-            // elsewhere in our code.
+
             mVehicleManager = ((VehicleManager.VehicleBinder) service)
                     .getService();
-            System.out.println("created3");
-            System.out.println(mVehicleManager);
-            // We want to receive updates whenever the EngineSpeed changes. We
-            // have an EngineSpeed.Listener (see above, mSpeedListener) and here
-            // we request that the VehicleManager call its receive() method
-            // whenever the EngineSpeed changes
+
             mVehicleManager.addListener(EngineSpeed.class, mSpeedListener);
-            System.out.println("created4");
+            mVehicleManager.addListener(IgnitionStatus.class, mIgnitionListener);
+            mVehicleManager.addListener(BrakePedalStatus.class, mBrakePedalListener);
+
         }
 
         // Called when the connection with the service disconnects unexpectedly
         public void onServiceDisconnected(ComponentName className) {
             Log.w(TAG, "VehicleManager Service  disconnected unexpectedly");
             mVehicleManager = null;
-            setEngineStatus(333.0);
         }
     };
 }

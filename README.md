@@ -62,6 +62,38 @@ RN > 0.47 or higher
   }
   ```
 
+* Add the following to `AndroidManifest.xml`:
+
+    ```xml
+    <service android:name="com.openxc.VehicleManager"/>
+    ```
+
+    This should go between <application> tags, like this:
+
+      ```xml
+    <application
+        android:name=".MainApplication"
+        android:allowBackup="true"
+        android:label="@string/app_name"
+        android:icon="@mipmap/ic_launcher"
+        android:theme="@style/AppTheme">
+        <activity
+          android:name=".MainActivity"
+          android:label="@string/app_name"
+          android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
+          android:windowSoftInputMode="adjustResize">
+          <intent-filter>
+              <action android:name="android.intent.action.MAIN" />
+              <category android:name="android.intent.category.LAUNCHER" />
+          </intent-filter>
+        </activity>
+        ...
+        <service android:name="com.openxc.VehicleManager"/>  // Add this line here
+    </application>
+
+    ```
+
+
 * Simply you can use it like this:
 
     ```javascript
@@ -70,3 +102,19 @@ RN > 0.47 or higher
       console.log('Ignition Status is:', ignition);
     })
     ```
+
+* Available functions are;
+
+  ```javascript
+  OpenXC.getEngineSpeed((speed) => {
+    console.log('Engine Speed is:', speed);
+  });
+
+  OpenXC.getIgnitionStatus((ignition) => {
+    console.log('Ignition Status is:', ignition);
+  });
+
+  OpenXC.getBrakePedalStatus((brake) => {
+    console.log('Brake Pedal Status is:', brake);
+  });
+  ```
