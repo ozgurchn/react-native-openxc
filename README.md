@@ -107,14 +107,14 @@ RN > 0.47 or higher
 
   ```javascript
   OpenXC.getEngineSpeed((speed) => {
-    console.log('Engine Speed is:', speed);
+    console.log('Engine Speed is: ', speed);
   });
 
   OpenXC.getIgnitionStatus((ignition) => {
-    console.log('Ignition Status is:', ignition);
+    console.log('Ignition Status is: ', ignition);
   });
 
   OpenXC.getBrakePedalStatus((brake) => {
-    console.log('Brake Pedal Status is:', brake);
+    console.log('Brake Pedal Status is: ', brake);
   });
   ```
