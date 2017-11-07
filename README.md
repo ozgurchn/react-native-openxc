@@ -71,27 +71,27 @@ RN > 0.47 or higher
     This should go between <application> tags, like this:
 
       ```xml
-    <application
-        android:name=".MainApplication"
-        android:allowBackup="true"
-        android:label="@string/app_name"
-        android:icon="@mipmap/ic_launcher"
-        android:theme="@style/AppTheme">
-        <activity
-          android:name=".MainActivity"
+      <application
+          android:name=".MainApplication"
+          android:allowBackup="true"
           android:label="@string/app_name"
-          android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
-          android:windowSoftInputMode="adjustResize">
-          <intent-filter>
-              <action android:name="android.intent.action.MAIN" />
-              <category android:name="android.intent.category.LAUNCHER" />
-          </intent-filter>
-        </activity>
-        ...
-        <service android:name="com.openxc.VehicleManager"/>  // Add this line here
-    </application>
+          android:icon="@mipmap/ic_launcher"
+          android:theme="@style/AppTheme">
+          <activity
+            android:name=".MainActivity"
+            android:label="@string/app_name"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
+            android:windowSoftInputMode="adjustResize">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+          </activity>
+          ...
+          <service android:name="com.openxc.VehicleManager"/>  // Add this line here
+      </application>
 
-    ```
+      ```
 
 
 * Simply you can use it like this:
