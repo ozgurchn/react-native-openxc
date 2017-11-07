@@ -56,11 +56,12 @@ Link the library:
           }
         }
         ```
- Now you can use it like:
+      4. Simply `import/require` it by the name defined in your library's `package.json`:
 
-    ```javascript
-    import OpenXC from 'react-native-openxc'
-    OpenXC.getIgnitionStatus((ignition) => {
-      console.log('Ignition Status', ignition);
-    })
-    ```
+          ```javascript
+          import OpenXc from 'react-native-openxc'
+          OpenXC.getIgnitionStatus((ignition) => {
+            console.log('Ignition Status is:', ignition)
+          })
+          ```
+      5. You can test and develop your library by importing the `node_modules` library into **Android Studio** if you don't want to install it from _git_ all the time.
