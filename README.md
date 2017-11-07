@@ -10,7 +10,6 @@ This project serves as a boilerplate to create custom React Native native module
 
 ## Manuel Linking
 
-## Installing it as a library in your main project
 There are many ways to do this, here's the way I do it:
 
     * Add the following to `android/settings.gradle`:
@@ -20,7 +19,7 @@ There are many ways to do this, here's the way I do it:
         ```
 
     * Add the following to `android/app/build.gradle`:
-        ```xml
+        ```
         ...
 
         dependencies {
@@ -29,6 +28,7 @@ There are many ways to do this, here's the way I do it:
         }
         ```
     * Add the following to `android/app/src/main/java/**/MainApplication.java`:
+
         ```java
         package com.packagename;
 
@@ -47,6 +47,7 @@ There are many ways to do this, here's the way I do it:
         ```
 
       * Add the following to `android/app/src/main/java/**/MainActivity.java`:
+
       ```java
       import android.app.Activity;  // <------ add here
       public class MainActivity extends ReactActivity {
@@ -59,7 +60,8 @@ There are many ways to do this, here's the way I do it:
         }
       }
       ```
-4. Simply `import/require` it by the name defined in your library's `package.json`:
+
+4. Simply you can use it like this:
 
     ```javascript
     import OpenXc from 'react-native-openxc'
@@ -67,4 +69,3 @@ There are many ways to do this, here's the way I do it:
       console.log('Ignition Status is:', ignition);
     })
     ```
-5. You can test and develop your library by importing the `node_modules` library into **Android Studio** if you don't want to install it from _git_ all the time.
