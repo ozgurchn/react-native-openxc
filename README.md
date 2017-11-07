@@ -56,7 +56,7 @@ Link the library:
           }
         }
         ```
- Now you can use it like;
+ Now you can use it like:
 
     ```javascript
     import OpenXC from 'react-native-openxc'
