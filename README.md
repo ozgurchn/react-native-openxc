@@ -1,5 +1,5 @@
 ## React Native OpenXC Library Integration
-This library lets you use OpenXC platform wtih react-native android app
+This library lets you use OpenXC platform within react-native android app
 
 
 ## Install
@@ -9,7 +9,7 @@ npm install --save react-native-openxc
 
 RN > 0.47 or higher
 
-## Manuel Linking(Android)
+## Manual Linking(Android)
 
 * Add the following to `android/settings.gradle`:
 
