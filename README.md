@@ -1,16 +1,15 @@
 ## React Native OpenXC Library Integration
-This project serves as a boilerplate to create custom React Native native modules that can later be installed through NPM and easily be used in production.
+This library lets you use OpenXC platform wtih react-native android app
 
 
 ## Install
+```sh
+npm install --save react-native-openxc
+```
 
-  npm install --save react-native-openxc
+RN > 0.47 or higher
 
-  RN > 0.47 or higher
-
-## Manuel Linking
-
-There are many ways to do this, here's the way I do it:
+## Manuel Linking(Android)
 
 * Add the following to `android/settings.gradle`:
 
@@ -48,7 +47,7 @@ There are many ways to do this, here's the way I do it:
     }
     ```
 
-  * Add the following to `android/app/src/main/java/**/MainActivity.java`:
+* Add the following to `android/app/src/main/java/**/MainActivity.java`:
 
   ```java
   import android.app.Activity;  // <------ add here
