@@ -1,0 +1,28 @@
+{
+  "name": "react-native-openxc",
+  "version": "0.0.1",
+  "author": "Özgür Cihan https://github.com/ozgurchn",
+  "private": false,
+  "license": "Unlicense",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ozgurchn/react-native-openxc.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ozgurchn/react-native-openxc.git/issues"
+  },
+  "homepage": "https://github.com/ozgurchn/react-native-openxc.git",
+  "keywords": [
+    "react-native",
+    "openxc",
+    "android",
+    "library"
+  ],
+  "scripts": {
+    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "test": "jest"
+  },
+  "peerDependencies": {
+    "react-native": ">=0.38.0"
+  }
+}
