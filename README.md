@@ -90,7 +90,6 @@ RN > 0.47 or higher
           ...
           <service android:name="com.openxc.VehicleManager"/>  // Add this line here
       </application>
-
       ```
 
 
