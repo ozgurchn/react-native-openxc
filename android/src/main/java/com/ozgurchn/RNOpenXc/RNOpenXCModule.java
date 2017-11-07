@@ -1,4 +1,4 @@
-package com.ozgurchn.RNOpenXc;
+package com.ozgurchn.rnopenxc;
 
 /**
  * Created by ozgur.cihan on 7.11.2017.
@@ -34,7 +34,7 @@ import com.facebook.react.bridge.Callback;
 
 import javax.annotation.Nonnull;
 
-public class RNOpenXCModule extends ReactContextBaseJavaModule {
+public class RNOpenXcModule extends ReactContextBaseJavaModule {
     private static final String TAG = "StarterActivity";
     private VehicleManager mVehicleManager;
     private TextView mEngineSpeedView;
@@ -43,7 +43,7 @@ public class RNOpenXCModule extends ReactContextBaseJavaModule {
     Timer timer = new Timer();
 
 
-    public RNOpenXCModule(ReactApplicationContext reactContext, Activity activity) {
+    public RNOpenXcModule(ReactApplicationContext reactContext, Activity activity) {
         super(reactContext);
         this.activity = activity;
         System.out.println("created");

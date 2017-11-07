@@ -1,4 +1,4 @@
-package com.ozgurchn.RNOpenXc;
+package com.ozgurchn.rnopenxc;
 
 /**
  * Created by ozgur.cihan on 7.11.2017.
@@ -15,10 +15,10 @@ import com.facebook.react.bridge.NativeModule;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.uimanager.ViewManager;
 
-public class RNOpenXCPackage implements ReactPackage {
+public class RNOpenXcPackage implements ReactPackage {
     private Activity activity;
 
-    public RNOpenXCPackage(Activity activity) {
+    public RNOpenXcPackage(Activity activity) {
         super();
         this.activity = activity;
     }
@@ -26,7 +26,7 @@ public class RNOpenXCPackage implements ReactPackage {
     @Override
     public List<NativeModule> createNativeModules(ReactApplicationContext reactContext) {
         return Arrays.<NativeModule>asList(
-                new RNOpenXCModule(reactContext, activity)
+                new RNOpenXcModule(reactContext, activity)
         );
     }
 
