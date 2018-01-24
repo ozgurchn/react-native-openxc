@@ -4,7 +4,7 @@ This library lets you use OpenXC platform within react-native android app
 
 ## Install
 ```sh
-npm install --save react-native-openxc
+npm install --save https://github.com/ozgurchn/react-native-openxc.git
 ```
 
 RN > 0.47 or higher
